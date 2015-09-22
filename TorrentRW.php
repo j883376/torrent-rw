@@ -737,7 +737,7 @@ class TorrentRW {
 		return round( $size, $precision ) . ' ' . ( $next ? prev( $units ) : end( $units ) );
 	}
 
-	/** Helper to return filesize (even bigger than 2Gb -linux only- and distant files size)
+	/** Helper to return filesize (even bigger than 2Gb -*nix only- and distant files size)
 	 * @param string file path
 	 * @return double|boolean filesize or false if error
 	 */
@@ -748,7 +748,7 @@ class TorrentRW {
 			return (int) preg_replace( $pattern, '$1', reset( $content_length ) );
 	}
 
-	/** Helper to open file to read (even bigger than 2Gb, linux only)
+	/** Helper to open file to read (even bigger than 2Gb, *nix only)
 	 * @param string file path
 	 * @param integer|double file size (optional)
 	 * @return ressource|boolean file handle or false if error
@@ -756,8 +756,8 @@ class TorrentRW {
 	static public function fopen ( $file, $size = null ) {
 		if ( ( is_null( $size ) ? self::filesize( $file ) : $size ) <= 2 * pow( 1024, 3 ) )
 			return fopen( $file, 'r' );
-		elseif ( PHP_OS != 'Linux' )
-			return self::set_error( new Exception( 'File size is greater than 2GB. This is only supported under Linux' ) );
+		elseif ( strtoupper(substr(php_uname('s'), 0, 3)) === 'WIN' )
+			return self::set_error( new Exception( 'File size is greater than 2GB. This is only supported under *nix' ) );
 		elseif ( ! is_readable( $file ) )
 			return false;
 		else
