@@ -1,4 +1,4 @@
-Torrent
+TorrentRW
 
 PHP version 5.2+
 
@@ -15,10 +15,10 @@ send a note to adrien.gibrat@gmail.com so I can mail you a copy.
 
 2) Usage example
 <code>
-require_once 'Torrent.php';
+require_once 'TorrentRW.php';
 
 // get torrent infos
-$torrent = new Torrent( './test.torrent' );
+$torrent = new TorrentRW( './test.torrent' );
 echo '<br>private: ', $torrent->is_private() ? 'yes' : 'no', 
 	 '<br>annonce: ', $torrent->announce(), 
 	 '<br>name: ', $torrent->name(), 
@@ -37,7 +37,7 @@ echo '<br>source: ',
 $torrent->magnet(); // use $torrent->magnet( false ); to get non html encoded ampersand
 
 // create torrent
-$torrent = new Torrent( array( 'test.mp3', 'test.jpg' ), 'http://torrent.tracker/annonce' );
+$torrent = new TorrentRW( array( 'test.mp3', 'test.jpg' ), 'http://torrent.tracker/annonce' );
 $torrent->save('test.torrent'); // save to disk
 
 // modify torrent

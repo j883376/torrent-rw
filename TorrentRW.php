@@ -1,6 +1,6 @@
 <?php
 /**
- * Torrent
+ * TorrentRW
  *
  * PHP version 5.2+ (with cURL extention enabled)
  *
@@ -18,10 +18,10 @@
  *
  * 2) Usage example
  * <code>
-require_once 'Torrent.php';
+require_once 'TorrentRW.php';
 
 // get torrent infos
-$torrent = new Torrent( './test.torrent' );
+$torrent = new TorrentRW( './test.torrent' );
 echo '<br>private: ', $torrent->is_private() ? 'yes' : 'no', 
 	 '<br>annonce: ', $torrent->announce(), 
 	 '<br>name: ', $torrent->name(), 
@@ -40,7 +40,7 @@ echo '<br>source: ',
 $torrent->magnet(); // use $torrent->magnet( false ); to get non html encoded ampersand
 
 // create torrent
-$torrent = new Torrent( array( 'test.mp3', 'test.jpg' ), 'http://torrent.tracker/annonce' );
+$torrent = new TorrentRW( array( 'test.mp3', 'test.jpg' ), 'http://torrent.tracker/annonce' );
 $torrent->save('test.torrent'); // save to disk
 
 // modify torrent
@@ -70,7 +70,7 @@ $torrent->send();
  * @version  Release: 1.2 (6 july 2010)
  */
 
-class Torrent {
+class TorrentRW {
 	
 	/**
 	* @const float Default http timeout
@@ -84,16 +84,16 @@ class Torrent {
 
 	/** Read and decode torrent file/data OR build a torrent from source folder/file(s)
 	 * Supported signatures:
-	 * - Torrent(); // get an instance (usefull to scrape and check errors)
-	 * - Torrent( string $torrent ); // analyse a torrent file
-	 * - Torrent( string $torrent, string $announce );
-	 * - Torrent( string $torrent, array $meta );
-	 * - Torrent( string $file_or_folder ); // create a torrent file
-	 * - Torrent( string $file_or_folder, string $announce_url, [int $piece_length] );
-	 * - Torrent( string $file_or_folder, array $meta, [int $piece_length] );
-	 * - Torrent( array $files_list );
-	 * - Torrent( array $files_list, string $announce_url, [int $piece_length] );
-	 * - Torrent( array $files_list, array $meta, [int $piece_length] );
+	 * - TorrentRW(); // get an instance (usefull to scrape and check errors)
+	 * - TorrentRW( string $torrent ); // analyse a torrent file
+	 * - TorrentRW( string $torrent, string $announce );
+	 * - TorrentRW( string $torrent, array $meta );
+	 * - TorrentRW( string $file_or_folder ); // create a torrent file
+	 * - TorrentRW( string $file_or_folder, string $announce_url, [int $piece_length] );
+	 * - TorrentRW( string $file_or_folder, array $meta, [int $piece_length] );
+	 * - TorrentRW( array $files_list );
+	 * - TorrentRW( array $files_list, string $announce_url, [int $piece_length] );
+	 * - TorrentRW( array $files_list, array $meta, [int $piece_length] );
 	 * @param string|array torrent to read or source folder/file(s) (optional, to get an instance)
 	 * @param string|array announce url or meta informations (optional)
 	 * @param int piece length (optional)
@@ -113,7 +113,7 @@ class Torrent {
 			$this->{$key} = $value;
 	}
 
-	/** Convert the current Torrent instance in torrent format
+	/** Convert the current TorrentRW instance in torrent format
 	 * @return string encoded torrent data
 	 */
 	public function __toString() {
